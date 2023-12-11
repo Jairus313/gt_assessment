@@ -2,10 +2,22 @@ from typing import Union
 from fastapi import FastAPI
 
 from model import login_cred
+from db import SessionLocal, engine
+from schema import Base
+
+Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI()
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 @app.post("/login")
 def read_root(item:login_cred):
-    print(item)
+    
     return {"username": item.username, "password": item.password}

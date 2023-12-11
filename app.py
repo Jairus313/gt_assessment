@@ -2,10 +2,9 @@ from typing import Union
 from fastapi import FastAPI
 
 from model import login_cred
-from db import SessionLocal, engine
-from schema import Base
+from db import SessionLocal, engine, Base
 
-Base.metadata.create_all(bind=engine)
+
 
 
 app = FastAPI()
